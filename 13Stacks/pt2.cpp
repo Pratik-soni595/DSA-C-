@@ -22,21 +22,34 @@ vector<int> nextGreaterElement(vector<int> arr){
     return ans;
 }
 
+char validPair(char p){
+    if(p=='(') return ')';
+    else if( p == '[') return ']';
+    else if( p == '{') return '}';
+}
+
 bool validParenthesis(string s){
     stack<char> temp;
-    if(s.empty()) return;
+    if(s.empty()) return true;
 
-    temp.push(s[0]);
-
-    for(int i = 1; i<s.size(); i++){
-        if(temp.top() == s[i]){
-            temp.pop();
+    
+    for(char ch : s){
+        if(ch == '[' || ch == '{' || ch == '('){
+            temp.push(ch);
         }else{
-            temp.push(s[i]);
+            if(temp.empty()) return false;
+            else if(validPair(temp.top()) == ch){
+                temp.pop();
+            }else{
+                return false;
+            }
         }
     }
+
+    return temp.empty();
 }
 
 int main(){
-    
+    string s = "((({{[[]]}})))(";
+    cout<< validParenthesis(s);
 }

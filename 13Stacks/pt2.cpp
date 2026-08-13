@@ -26,6 +26,7 @@ char validPair(char p){
     if(p=='(') return ')';
     else if( p == '[') return ']';
     else if( p == '{') return '}';
+    else return '\0';
 }
 
 bool validParenthesis(string s){
@@ -49,7 +50,30 @@ bool validParenthesis(string s){
     return temp.empty();
 }
 
+
+bool duplicateParenthesis(string s){
+    stack<char> temp;
+    for (char ch : s){
+        
+        if( ch == ']' || ch == '}' || ch == ')'){
+            if(validPair(temp.top()) == ch){
+                return false;
+            }else{
+                while(validPair(temp.top()) != ch){
+                    temp.pop();
+                }
+                temp.pop();
+            }
+        }else{
+            temp.push(ch);
+        }
+    }
+    return true;
+}
+
 int main(){
     string s = "((({{[[]]}})))(";
-    cout<< validParenthesis(s);
+    string s2 = "({a+b}+{c+d})";
+    cout<< validParenthesis(s)<<endl;
+    cout<< duplicateParenthesis(s2)<<endl;
 }

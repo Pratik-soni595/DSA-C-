@@ -17,6 +17,7 @@ vector<int> nextGreaterElement(vector<int> arr){
         }else{
             ans[i] = track.top();
         }
+        
         track.push(arr[i]);
     }
     return ans;
